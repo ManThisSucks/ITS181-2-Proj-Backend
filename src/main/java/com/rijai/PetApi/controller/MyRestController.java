@@ -53,9 +53,9 @@ public class MyRestController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value="/api/update-dog", method=RequestMethod.PUT)
-    public Dog updateDog(@RequestBody Dog dog) {
-        return dogService.updateDog(dog);
+    @RequestMapping(value="/api/update-dog/{id}", method=RequestMethod.PUT)
+    public Dog updateDog(@PathVariable int id, @RequestBody Dog dog) {
+        return dogService.updateDog(id, dog);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
