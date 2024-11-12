@@ -18,4 +18,6 @@ public interface IDogService {
     Dog reserveDog(int id);
 
     Dog unreserveDog(int id);
+
+    List<Dog> addDogs(List<Dog> dogs);
 }

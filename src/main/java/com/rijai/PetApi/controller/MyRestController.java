@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class MyRestController {
@@ -22,7 +23,9 @@ public class MyRestController {
     @RequestMapping("/api/dogs/available")
     public List<Dog> getAvailableDogs() {
         List<Dog> allDogs = dogService.findAll();
-        return null; // TODO: only return dogs where dog.isAvailable == true
+        return allDogs.stream()
+                .filter(Dog::isAvailable)
+                .collect(Collectors.toList());
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -41,6 +44,12 @@ public class MyRestController {
     @RequestMapping(value="/api/add-dog", method=RequestMethod.POST)
     public Dog addDog(@RequestBody Dog dog) {
         return dogService.addDog(dog);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/api/add-dogs", method = RequestMethod.POST)
+    public List<Dog> addDogs(@RequestBody List<Dog> dogs) {
+        return dogService.addDogs(dogs);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

@@ -5,6 +5,7 @@ import com.rijai.PetApi.repository.DogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,8 +47,9 @@ public class DogService implements IDogService {
     public Dog reserveDog(int id) {
         Optional<Dog> dog = dogRepository.findById((long) id);
         if(dog.isPresent()) {
-            dog.get().setAvailable(false);
-            return dog.get();
+            Dog newDog = dog.get();
+            newDog.setAvailable(false);
+            return dogRepository.save(newDog);
         }
         return null;
     }
@@ -55,9 +57,19 @@ public class DogService implements IDogService {
     public Dog unreserveDog(int id) {
         Optional<Dog> dog = dogRepository.findById((long) id);
         if(dog.isPresent()) {
-            dog.get().setAvailable(true);
-            return dog.get();
+            Dog newDog = dog.get();
+            newDog.setAvailable(true);
+            return dogRepository.save(newDog);
         }
         return null;
+    }
+
+    @Override
+    public List<Dog> addDogs(List<Dog> dogs) {
+        List<Dog> addedDogs = new ArrayList<>();
+        for (Dog dog : dogs) {
+            addedDogs.add(addDog(dog));
+        }
+        return addedDogs;
     }
 }
