@@ -70,7 +70,7 @@ All endpoints are CORS-enabled for `http://localhost:4200`. This is for compatib
 
 To use the API, ensure the following:
 1. Clone the repository.
-2. Set up a MySQL database and configure connection properties.
+2. Set up a MySQL database and configure connection properties (username & password in resources/application.properties)
 3. Start the Spring Boot application.
 
 ### Easy API Tests with Postman
